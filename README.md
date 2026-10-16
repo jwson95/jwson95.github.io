@@ -10,7 +10,7 @@
 - 글 작성용 초안 템플릿
 - 검색, 카테고리, 태그, 아카이브, RSS
 - 긴 글에서 필요할 때만 목차를 켜는 구성
-- 댓글과 방문자 분석은 미설정
+- 댓글은 미설정, 방문 통계는 비공개 GoatCounter 관리 화면에서 확인
 - 글에는 별도의 재사용 라이선스를 부여하지 않음. 테마 코드는 원본 MIT 라이선스 유지
 - main 브랜치 변경 시 GitHub Pages 자동 배포
 
@@ -112,6 +112,37 @@ bash tools/test.sh
 배포 결과는 Actions 화면에서 확인할 수 있으며, 필요하면 **Run workflow**로 다시 배포할 수 있습니다.
 
 `personal-blog`처럼 다른 저장소 이름을 쓰면 `_config.yml`의 `baseurl`을 `/personal-blog`로 설정해야 합니다.
+
+## 방문 통계
+
+관리 화면: [jwson95 GoatCounter](https://jwson95.goatcounter.com/)
+
+로그인한 본인만 관리 화면에서 방문 추이와 글별 통계를 확인할 수 있습니다.
+블로그 화면에는 방문자 수나 조회수를 공개하지 않습니다.
+
+### 연결 설정
+
+1. GoatCounter에 사이트 도메인 `jwson95.github.io`를 등록합니다.
+2. 발급된 사이트 코드만 `_config.yml`의 `analytics.goatcounter.id`에 입력합니다. 전체 주소나 `/count`는 넣지 않습니다.
+3. GoatCounter의 `Dashboard viewable by`를 `Only logged in users`로 두고, `Allow adding visitor counts on your website`는 끕니다.
+4. `_config.yml`의 `pageviews.provider`는 비워둡니다. 블로그에는 방문자 수나 글별 조회수를 표시하지 않습니다.
+5. 커밋 후 `main`에 푸시하여 배포합니다. 관리용 API 키나 비밀번호는 저장소에 넣지 않습니다.
+
+### 통계 확인
+
+관리 화면에 로그인하고 `day`, `week`, `month` 또는 시작일·종료일로 기간을 선택합니다.
+`Totals`에서 전체 방문 추이를, `Pages`에서 페이지별 방문 수를 확인합니다.
+필터에 `/posts/`를 입력하면 글 경로만 볼 수 있고, 경로를 선택해 글별 통계를 살펴봅니다.
+
+집계는 GoatCounter의 `Sessions` 설정을 켜서 최대 8시간 동안 같은 방문자의 반복 새로고침을 중복 제거합니다.
+통계는 실제 사람 수와 완전히 일치하는 값이 아니라 서비스 기준으로 집계한 방문 수입니다.
+연결 이전의 방문 기록은 복원되지 않습니다.
+
+Chirpy는 `JEKYLL_ENV=production` 빌드에서만 수집 스크립트를 추가하므로 기본 로컬 미리보기에는 적용되지 않습니다.
+통계가 보이지 않으면 사이트 코드, 최근 배포 결과, 브라우저의 광고·추적 차단 여부를 확인하세요.
+
+- [GoatCounter 집계 기준](https://www.goatcounter.com/help/sessions)
+- [내 방문 제외 방법](https://www.goatcounter.com/help/skip-dev)
 
 ## 참고
 
